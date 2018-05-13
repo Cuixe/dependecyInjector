@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha src/test/  --recursive -R dot"
+    "test": "mocha src/test/  --recursive -R dot --colors"
   },
   "author": "",
   "license": "ISC",
