@@ -4,7 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var SLASH = '/';
 
-function Injector(mainPath, testPath) {    
+function Injector(mainPath, testPath) {
     this.handledDependencies = {};
     this.mainPath = mainPath == undefined ? DEFAULT_MAIN_PACKAGE : mainPath;
     this.testPath = testPath == undefined ? DEFAULT_TEST_PACKAGE : testPath;
@@ -16,7 +16,7 @@ function Injector(mainPath, testPath) {
     this.projectPath = current.replace(this.mainPath, "").replace(this.testPath, "");
 }
 
-Injector.prototype.registerDependency = function (dependecyName, dependency) {
+Injector.prototype.register = function (dependecyName, dependency) {
     var handledDependency = {name: dependecyName, type:0, object: undefined};
     if (dependency == undefined) {
         handledDependency.type = 2;

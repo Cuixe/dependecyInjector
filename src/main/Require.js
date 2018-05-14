@@ -3,16 +3,10 @@ var injector = new Injector();
 
 module.exports = {
 
-    register : function(dependecyName, file) {
-        injector.registerDependency(dependecyName, file);
-    },
-    registerDependency : function(dependecyName, file) {
-        injector.registerDependency(dependecyName, file);
+    register : function(dependecyName, dependency) {
+        injector.register(dependecyName, dependency);
     },
 
-    require : function(dependecyName) {
-        return injector.get(dependecyName);
-    },
     get : function(dependecyName) {
         return injector.get(dependecyName);
     }

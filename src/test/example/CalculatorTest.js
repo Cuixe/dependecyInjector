@@ -1,6 +1,6 @@
 var requireUtils = require('../../main/Require');
-requireUtils.registerDependency('chai');
-requireUtils.registerDependency('calc', 'example/Calculator');
+requireUtils.register('chai');
+requireUtils.register('calc', 'example/Calculator');
 var chai = requireUtils.get('chai');
 var expect = chai.expect;
 

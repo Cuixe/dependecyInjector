@@ -17,21 +17,21 @@ describe('Injector Test Suite', function() {
 
     it('registerDependecy', function() {
         var injector = new Injector();
-        injector.registerDependency('path');
+        injector.register('path');
         var path = injector.get('path');
         expect(path.resolve(__dirname)).not.null;
     });
 
     it('registerMockDependecy', function() {
         var injector = new Injector();
-        injector.registerDependency('path','mock/pathMock.js');
+        injector.register('path','mock/pathMock.js');
         var path = injector.get('path');
         expect(path.resolve(__dirname)).eq(__dirname);
     });
 
     it('registerFunctionDependecy', function() {
         var injector = new Injector();
-        injector.registerDependency('path',{
+        injector.register('path',{
             resolve : function(str) {
                 return "ABC" + str;
             }
