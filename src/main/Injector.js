@@ -16,33 +16,36 @@ function Injector(mainPath, testPath) {
     this.projectPath = current.replace(this.mainPath, "").replace(this.testPath, "");
 }
 
-Injector.prototype.registerDependency = function (dependecyName, file) {
-    file = file == undefined ? dependecyName : file; 
-    var ext = file.substr(file.length - 3, file.length);
-    var dependency = {name: dependecyName, type:0, object: undefined};
-    if (ext == ".js") {
-        dependency.type = 1;
-        var path = this.projectPath + this.mainPath + file;
-        if(fs.existsSync(path)) {
-            dependency.object = path;
-        }
-        var path = this.projectPath + this.testPath + file;
-        if(fs.existsSync(path)) {
-            dependency.object = path;
-        }
+Injector.prototype.registerDependency = function (dependecyName, dependency) {
+    var handledDependency = {name: dependecyName, type:0, object: undefined};
+    if (dependency == undefined) {
+        handledDependency.type = 2;
+        handledDependency.object = dependecyName;
     } else {
-        dependency.type = 2;
-        dependency.object = dependecyName;
+        var type = typeof dependency;
+        if (type == "string") {
+            var ext = dependency.substr(dependency.length - 3, dependency.length);
+            if (ext != ".js") { 
+                dependency += ".js";
+            }
+            handledDependency.type = 1;
+            var path = this.projectPath + this.mainPath + dependency;
+            if(fs.existsSync(path)) {
+                handledDependency.object = path.replace('.js', '');
+            }
+            var path = this.projectPath + this.testPath + dependency;
+            if(fs.existsSync(path)) {
+                handledDependency.object = path.replace('.js', '');
+            }
+        } else {
+            handledDependency.type = 3;
+            handledDependency.object = dependency;
+        }
     }
-    this.handledDependencies[dependecyName] = dependency;
+    this.handledDependencies[dependecyName] = handledDependency;
 }
 
-Injector.prototype.registerFunction = function(dependecyName, callback) {
-    var dependency = {name: dependecyName, type:3, object: callback};
-    this.handledDependencies[dependecyName] = dependency;
-}
-
-Injector.prototype.require = function (dependecyName) {
+Injector.prototype.get = function (dependecyName) {
     var dependency = this.handledDependencies[dependecyName];
     if (dependency == undefined) {
         return NaN;
