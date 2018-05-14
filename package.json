@@ -1,12 +1,12 @@
 {
   "name": "dependencyinjector",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Utility to handle dependencies a cross the project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha src/test/  --recursive -R dot --colors"
+    "test": "mocha src/test/ --recursive -R dot --colors"
   },
-  "author": "",
+  "author": "Hugo Fuentes",
   "license": "ISC",
   "dependencies": {
     "mocha": "4.1.0",
